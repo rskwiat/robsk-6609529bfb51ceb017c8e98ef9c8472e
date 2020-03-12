@@ -4,23 +4,22 @@ window.initGame = function () {
   console.log('initgame');
     // you're really better off leaving this line alone, i promise.
   const command =
-        '5 3 \n 1 1 s\n ffffff\n 2 1 w \n flfffffrrfffffff\n 0 3 w\n LLFFFLFLFL';
+        '5 3\n 1 1 s\n ffffff\n 2 1 w \n flfffffrrfffffff\n 0 3 w\n LLFFFLFLFL';
 
     // this function parses the input string so that we have useful names/parameters
     // to define the playfield and robots for subsequent steps
   const parseInput = (input) => {
-        //
-        // task #1 
-        //
-        // replace the 'parsed' variable below to be the string 'command' parsed into an object we can pass to genworld();
-        // genworld expects an input object in the form { 'bounds': [3, 8], 'robos': [{x: 2, y: 1, o: 'W', command: 'rlrlff'}]}
-        // where bounds represents the southeast corner of the plane and each robos object represents the
-        // x,y coordinates of a robot and o is a string representing their orientation. a sample object is provided below
-        //
+    let commands = input.split('\n ');
 
-        // replace this with a correct object
+    this.console.log(commands[1]);
+
+    const bounds = JSON.parse("[" + commands[0].split(' ').join(',') + "]");
+    const robos = [];
+
+
+
     let parsed = {
-      bounds: [20, 20],
+      bounds: bounds,
       robos: [{
         x: 2,
         y: 1,
@@ -38,6 +37,39 @@ window.initGame = function () {
         command: 'frlrlrlr'
       }]
     };
+
+    this.console.log(parsed);
+
+
+        //
+        // task #1 
+        //
+        // replace the 'parsed' variable below to be the string 'command' parsed into an object we can pass to genworld();
+        // genworld expects an input object in the form { 'bounds': [3, 8], 'robos': [{x: 2, y: 1, o: 'W', command: 'rlrlff'}]}
+        // where bounds represents the southeast corner of the plane and each robos object represents the
+        // x,y coordinates of a robot and o is a string representing their orientation. a sample object is provided below
+        //
+
+        // replace this with a correct object
+        // let parsed = {
+        //   bounds: [20, 20],
+        //   robos: [{
+        //     x: 2,
+        //     y: 1,
+        //     o: 'W',
+        //     command: 'rlrlrff'
+        //   }, {
+        //     x: 12,
+        //     y: 10,
+        //     o: 'E',
+        //     command: 'fffffffffff'
+        //   }, {
+        //     x: 18,
+        //     y: 8,
+        //     o: 'N',
+        //     command: 'frlrlrlr'
+        //   }]
+        // };
 
     return parsed;
   };
