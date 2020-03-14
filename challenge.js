@@ -8,18 +8,35 @@ window.initGame = function () {
 
     // this function parses the input string so that we have useful names/parameters
     // to define the playfield and robots for subsequent steps
+
+  const establishBounds = (input) => {
+    let bounds = [];
+    input = input.split('\n')[0].split(' ');
+    const boundsX = parseInt(input[0]);
+    const boundsY = parseInt(input[1]);
+    bounds.push(boundsX, boundsY)
+    return bounds;
+  };
+  
+  const listDirections = (input) => {
+    const directions = [];
+    input = input.split('\n');
+    for (let i=1; i<input.length; i=i+2) {
+      directions.push(input[i+1]);
+    }
+    return directions;
+  };
+
   const parseInput = (input) => {
-    let commands = input.split('\n ');
-
-    this.console.log(commands[1]);
-
-    const bounds = JSON.parse("[" + commands[0].split(' ').join(',') + "]");
     const robos = [];
 
-
+    let command = listDirections(input);
+    this.console.log('COMMAND ===', command);
+    this.console.log('EstablishBounds ===', establishBounds(input));
+    this.console.log('INPUT ===', input);
 
     let parsed = {
-      bounds: bounds,
+      bounds: establishBounds(input),
       robos: [{
         x: 2,
         y: 1,
