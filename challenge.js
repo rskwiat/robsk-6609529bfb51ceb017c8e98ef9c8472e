@@ -17,7 +17,24 @@ window.initGame = function () {
     bounds.push(boundsX, boundsY)
     return bounds;
   };
-  
+
+  const createRovers = (input) => {
+    const rovers = [];
+    input = input.split('\n');
+    for (let i=1; i<input.length; i=i+2) {
+      rovers.push(getLocationValues(input[i]));
+    }
+    return rovers;
+  };
+
+  const getLocationValues = (startPos) => {
+    const locationValues = {};
+    locationValues.x = parseInt(startPos.split(' ')[1]);
+    locationValues.y = parseInt(startPos.split(' ')[2]);
+    locationValues.o = startPos.split(' ')[3];
+    return locationValues;
+  };
+
   const listDirections = (input) => {
     const directions = [];
     input = input.split('\n');
@@ -28,65 +45,25 @@ window.initGame = function () {
   };
 
   const parseInput = (input) => {
-    const robos = [];
 
-    let command = listDirections(input);
-    this.console.log('COMMAND ===', command);
-    this.console.log('EstablishBounds ===', establishBounds(input));
-    this.console.log('INPUT ===', input);
+    //
+    // task #1 
+    //
+    // replace the 'parsed' variable below to be the string 'command' parsed into an object we can pass to genworld();
+    // genworld expects an input object in the form { 'bounds': [3, 8], 'robos': [{x: 2, y: 1, o: 'W', command: 'rlrlff'}]}
+    // where bounds represents the southeast corner of the plane and each robos object represents the
+    // x,y coordinates of a robot and o is a string representing their orientation. a sample object is provided below
+    //
+    const robos = createRovers(input);
+
+    robos.forEach((e, i) => {
+      e.command = listDirections(input)[i];
+    })
 
     let parsed = {
       bounds: establishBounds(input),
-      robos: [{
-        x: 2,
-        y: 1,
-        o: 'W',
-        command: 'rlrlrff'
-      }, {
-        x: 12,
-        y: 10,
-        o: 'E',
-        command: 'fffffffffff'
-      }, {
-        x: 18,
-        y: 8,
-        o: 'N',
-        command: 'frlrlrlr'
-      }]
+      robos: robos
     };
-
-    this.console.log(parsed);
-
-
-        //
-        // task #1 
-        //
-        // replace the 'parsed' variable below to be the string 'command' parsed into an object we can pass to genworld();
-        // genworld expects an input object in the form { 'bounds': [3, 8], 'robos': [{x: 2, y: 1, o: 'W', command: 'rlrlff'}]}
-        // where bounds represents the southeast corner of the plane and each robos object represents the
-        // x,y coordinates of a robot and o is a string representing their orientation. a sample object is provided below
-        //
-
-        // replace this with a correct object
-        // let parsed = {
-        //   bounds: [20, 20],
-        //   robos: [{
-        //     x: 2,
-        //     y: 1,
-        //     o: 'W',
-        //     command: 'rlrlrff'
-        //   }, {
-        //     x: 12,
-        //     y: 10,
-        //     o: 'E',
-        //     command: 'fffffffffff'
-        //   }, {
-        //     x: 18,
-        //     y: 8,
-        //     o: 'N',
-        //     command: 'frlrlrlr'
-        //   }]
-        // };
 
     return parsed;
   };
@@ -95,6 +72,8 @@ window.initGame = function () {
     // from their commandset
   const tickRobos = (robos) => {
     console.log('tickrobos');
+
+    console.log(robos);
         // 
         // task #2
         //
@@ -123,6 +102,7 @@ window.initGame = function () {
   };
     // mission summary function
   const missionSummary = (robos) => {
+    console.log('mission summary', robos);
         //
         // task #3
         //
